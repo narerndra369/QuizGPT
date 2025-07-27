@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import com.narendra.models.repository.ModelRepository;
+import com.narendra.models.repository.*;
 
 @Service
 public class QuizService {

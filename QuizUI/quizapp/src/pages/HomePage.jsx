@@ -51,18 +51,34 @@ function HomePage() {
     }
 
     return (
-        <div>
-            <h1>Welcome to the AI Quiz App</h1>
-            <div className="home-content">
-                <input type="text" placeholder="Enter your email" value={email} onChange={emailChange} />
-                <br></br>
-                <input type="text" placeholder="Enter your prompt" value={prompt} onChange={promptChange} />
-                <br></br>
-                <button onClick={generateQuestions}>Generate Questions</button>
-                {isLoading && <h3>GPT Generating questions...</h3>}
-                {questionsGenerated && <button onClick={startQuiz}>Start Quiz</button>}
-            </div>
+        <div className="home-container">
+        <h1>Welcome to the AI Quiz App</h1>
+        <div className="form-container">
+            <input 
+                type="text" 
+                placeholder="Enter your email" 
+                value={email} 
+                onChange={emailChange} 
+            />
+            <input 
+                type="text" 
+                placeholder="Enter your prompt" 
+                value={prompt} 
+                onChange={promptChange} 
+            />
+            <button className="generate-btn" onClick={generateQuestions}>
+                Generate Questions
+            </button>
+            
+            {isLoading && <h3 className="loading-text">GPT is generating questions...</h3>}
+            
+            {questionsGenerated && (
+                <button className="start-btn" onClick={startQuiz}>
+                    Start Quiz
+                </button>
+            )}
         </div>
+    </div>
     );
 }
 

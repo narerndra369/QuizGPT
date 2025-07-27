@@ -6,12 +6,21 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.narendra.models.Quiz;
 import com.narendra.models.QuizService;
+import com.narendra.models.UserEntity;
+
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.web.client.RestTemplate;
 
@@ -24,6 +33,36 @@ public class OllamaController {
     private final ChatClient chatClient;
 
     
+	@Autowired
+    private  com.narendra.SpringAIDemo.Authentication.MyUserDetailsService userDetailsService;
+	@Autowired
+    private AuthenticationManager authenticationManager;
+	@Autowired
+	com.narendra.SpringAIDemo.Authentication.JWTService jwtService;
+	
+	
+	
+	@PostMapping("/register")
+	public String register(@RequestBody UserEntity user) {
+		return userDetailsService.register(user);
+	}
+	
+	@PostMapping("/login")
+	public String login(@RequestBody UserEntity user) {
+		 try {
+	            Authentication auth = authenticationManager.authenticate(
+	                new UsernamePasswordAuthenticationToken(user.getName(), user.getPass())
+	            );
+	            if(auth.isAuthenticated()) {
+	            	return jwtService.generateToken(user.getName());
+	            }
+	            return auth.isAuthenticated() ? "success" : "fail";
+	        } catch (Exception e) {
+	        	e.printStackTrace();
+	            return "fail";
+	        }
+	}
+    
 
     @Autowired
     private QuizService db;
@@ -35,6 +74,7 @@ public class OllamaController {
     @CrossOrigin(origins = "http://localhost:3000",allowCredentials = "true")
     @GetMapping("/")
     public ResponseEntity<String> home() {
+    	
         return ResponseEntity.ok("Quiz Generator Running");
     }
     
@@ -137,9 +177,16 @@ public class OllamaController {
                 quizArray.add(quiz);
             }
         }
+        
+        LocalDate localDate = LocalDate.now();
 
+	     // Convert to java.util.Date
+	     Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+	     System.out.println(date);
+        
         // Save quiz result
-        Quiz q = new Quiz("nare6301@gmail.com", quizArray, correct);
+        Quiz q = new Quiz("nare6301@gmail.com", quizArray, correct,date);
+        
         db.addQuiz(q);
 
         // Prepare response

@@ -1,38 +1,237 @@
-.App {
-  text-align: center;
+/* HomePage.css */
+
+/* Main container for the entire page */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f0f2f5; /* Light grey background */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    padding: 20px;
+    text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Styling for the main heading */
+.home-container h1 {
+    font-size: 2.5rem;
+    color: #1c1e21; /* Dark grey text */
+    margin-bottom: 2rem;
+    font-weight: 600;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Container for the form elements */
+.form-container {
+    background: #ffffff;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 450px; /* Adjusted width for login/register forms */
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; /* Spacing between form elements */
+    align-items: center; /* Center form content */
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* Styling for the form itself */
+.form-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    text-align: left;
 }
 
-.App-link {
-  color: #61dafb;
+
+/* Styling for input fields */
+.form-container input[type="text"],
+.form-container input[type="password"] {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #dddfe2;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #333;
+    box-sizing: border-box; /* Ensures padding doesn't affect width */
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Style for input fields on focus */
+.form-container input[type="text"]:focus,
+.form-container input[type="password"]:focus {
+    border-color: #1877f2; /* Blue border on focus */
+    box-shadow: 0 0 0 2px rgba(24, 119, 242, 0.2);
+    outline: none;
+}
+
+/* Styling for all buttons */
+.form-container button {
+    width: 100%;
+    padding: 14px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    margin-top: 1rem; /* Add margin to buttons */
+}
+
+/* Specific styling for the "Generate/Submit" button */
+.form-container button.generate-btn {
+    background-color: #1877f2; /* Primary blue */
+}
+
+.form-container button.generate-btn:hover {
+    background-color: #166fe5; /* Darker blue on hover */
+}
+
+/* Specific styling for the "Start Quiz" button */
+.form-container button.start-btn {
+    background-color: #42b72a; /* Green for start */
+}
+
+.form-container button.start-btn:hover {
+    background-color: #36a420; /* Darker green on hover */
+}
+
+/* Active state for buttons */
+.form-container button:active {
+    transform: scale(0.98);
+}
+
+/* Styling for the loading text */
+.loading-text {
+    font-size: 1rem;
+    color: #606770;
+    font-weight: 500;
+    margin-top: 0.5rem;
+    text-align: center;
+}
+
+/* Styling for the login/register link */
+.login-link, .register-link {
+    color: #1877f2;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-top: 1rem;
+    text-align: center;
+    transition: text-decoration 0.2s;
+}
+
+.login-link:hover, .register-link:hover {
+    text-decoration: underline;
+}
+
+
+/* --- QUIZ STYLES --- */
+
+.question-card {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #e9ebee;
+    padding-bottom: 1.5rem;
+    width: 100%; /* Ensure card takes full width of form-container */
+}
+
+.question-card:last-of-type {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.question-text {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #1c1e21;
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+}
+
+.options-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.option-label {
+    display: block;
+    padding: 12px 16px;
+    border: 1px solid #dddfe2;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+    font-size: 1rem;
+    color: #333;
+}
+
+.option-label:hover {
+    background-color: #f5f6f7;
+    border-color: #ccd0d5;
+}
+
+/* Hide the default radio button */
+.option-radio {
+    display: none;
+}
+
+/* Style the label when its corresponding radio button is checked */
+.option-radio:checked + .option-label {
+    background-color: #e7f3ff;
+    border-color: #1877f2;
+    font-weight: 600;
+    color: #1877f2;
+}
+
+/* --- RESULTS PAGE STYLES --- */
+
+.results-container {
+    text-align: center;
+}
+
+.score-display {
+    margin: 1.5rem 0;
+}
+
+.score-display p {
+    font-size: 1.2rem;
+    color: #606770;
+    margin: 0;
+}
+
+.score-display span {
+    font-size: 4rem;
+    font-weight: 700;
+    color: #1877f2;
+}
+
+.stats-container {
+    font-size: 1.1rem;
+    color: #4b5563;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.stats-container p {
+    margin: 0.5rem 0;
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+}
+
+.logout-btn {
+    background-color: #f02849; /* A red for logout */
+}
+
+.logout-btn:hover {
+    background-color: #d91c3a;
 }

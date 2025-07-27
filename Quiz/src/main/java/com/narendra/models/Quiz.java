@@ -1,5 +1,7 @@
 package com.narendra.models;
 
+import java.util.Date;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -15,14 +17,20 @@ public class Quiz {
 	
 	private JsonNode questions;
 	
-	private int score;
+	private Date insertedAt;
+	
 
-	public Quiz(String gmail, JsonNode questions, int score) {
+	private int score;
+	public Quiz( String gmail, JsonNode questions, int score, Date insertedAt) {
 		super();
 		this.gmail = gmail;
 		this.questions = questions;
+		this.insertedAt = insertedAt;
 		this.score = score;
 	}
+
+
+	
 
 	public String getId() {
 		return id;
