@@ -4,7 +4,9 @@
 
 An intelligent web application that dynamically generates quiz questions based on a user's prompt. Built with a modern tech stack including Spring Boot, Spring AI, MongoDB, and React.js, and secured with JWT.
 
-![QuizGPT Demo](./QuizUI/quizapp/public/QuizGPT.png)
+<div align="center">
+  <img src="./QuizUI/quizapp/public/QuizGPT.png" width="600" height="400" alt="QuizGPT Demo">
+</div>
 
 ---
 
